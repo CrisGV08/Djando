@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body id="myId">
+    <section class="register-account">
+        <div class="signform">
+            <!-- Registration Form -->
+            <div class="right">
+                <div class="headit">
+                    <h4>Create a New Account</h4>
+                </div>
+                <div class="form">
+                    <form class="register-form" id="register-form" method="POST" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        <input type="text" placeholder="User Name" name="username" required/>
+                        <input type="email" placeholder="Email" name="email" required/>
+                        <input type="password" placeholder="Password" name="password1" required/>
+                        <input type="password" placeholder="Confirm Password" name="password2" required/>
+                        <input class="subbt" type="submit" value="Register" style="border:none;"/>
+                    </form>
+                    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

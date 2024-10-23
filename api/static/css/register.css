@@ -1,0 +1,98 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.register-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signform {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.headit h4 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+/* Form styles */
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Checkbox and link */
+.form input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.form span {
+    color: #b6b6b6;
+    font-size: 0.9em;
+}
+
+.form p {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+.form a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+    .signform {
+        width: 100%;
+        padding: 15px;
+    }
+}

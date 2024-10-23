@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recover Password</title>
+    <link rel="stylesheet" href="{% static 'css/recover.css' %}">  <!-- Asegúrate de crear este archivo CSS -->
+</head>
+<body>
+    <div class="container">
+        <h2>Recover Your Password</h2>
+        <form method="POST" action="{% url 'recover' %}">
+            {% csrf_token %}
+            <input type="email" placeholder="Enter your email" name="email" required/>
+            <input class="submit" type="submit" value="Send Recovery Email"/>
+        </form>
+        <a href="{% url 'login' %}">Back to Login</a>
+    </div>
+</body>
+</html>

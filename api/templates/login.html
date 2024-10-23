@@ -1,12 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/recover.css' %}"> <!-- Asegúrate de que este archivo exista -->
+    <script>
+        // Función para abrir la ventana modal de recuperación de contraseña
+        function openRecoveryModal() {
+            document.getElementById('recoveryModal').style.display = 'block';
+        }
+
+        // Función para cerrar la ventana modal
+        function closeRecoveryModal() {
+            document.getElementById('recoveryModal').style.display = 'none';
+        }
+
+        // Cierra la ventana modal si se hace clic fuera de ella
+        window.onclick = function(event) {
+            const modal = document.getElementById('recoveryModal');
+            if (event.target === modal) {
+                closeRecoveryModal();
+            }
+        }
+    </script>
+    <style>
+        /* Estilo para el modal */
+        .modal {
+            display: none; /* Ocultamos el modal por defecto */
+            position: fixed; /* Permanece en la pantalla */
+            z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo */
+            height: 100%; /* Alto completo */
+            overflow: auto; /* Si la ventana modal es más alta que la pantalla, permitir desplazamiento */
+            background-color: rgba(0, 0, 0, 0.6); /* Fondo negro con opacidad */
+            backdrop-filter: blur(5px); /* Efecto de desenfoque al fondo */
+        }
+
+        .modal-content {
+            background-color: #ffffff; /* Fondo blanco para el contenido del modal */
+            margin: 10% auto; /* 10% desde la parte superior y centrado */
+            padding: 30px; /* Espaciado interno */
+            border-radius: 10px; /* Esquinas redondeadas */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra */
+            width: 90%; /* Ancho del modal */
+            max-width: 400px; /* Ancho máximo */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+            transition: color 0.3s; /* Transición suave para el color */
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ff4d4d; /* Cambia el color al pasar el mouse */
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin: 0 0 20px; /* Margen en la parte inferior */
+            font-size: 24px; /* Tamaño de fuente */
+            color: #333; /* Color del texto */
+        }
+
+        input[type="email"],
+        input[type="submit"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px; /* Espaciado interno */
+            margin: 10px 0; /* Margen superior e inferior */
+            border: 1px solid #ccc; /* Borde gris claro */
+            border-radius: 5px; /* Esquinas redondeadas */
+            font-size: 16px; /* Tamaño de fuente */
+        }
+
+        input[type="email"]:focus,
+        input[type="submit"]:hover {
+            border-color: #007bff; /* Color del borde al enfocar o al pasar el mouse */
+            outline: none; /* Sin borde de enfoque */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff; /* Color de fondo azul */
+            color: white; /* Color del texto */
+            font-weight: bold; /* Texto en negrita */
+            cursor: pointer; /* Cambiar el cursor al pasar el mouse */
+            transition: background-color 0.3s; /* Transición suave para el fondo */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+        }
+
+        /* Estilo para el enlace de registro */
+        .signup-btn {
+            display: inline-block; /* Asegura que se comporta como un bloque */
+            padding: 10px 15px; /* Espaciado alrededor del texto */
+            margin-top: 10px; /* Margen superior */
+            background-color: #28a745; /* Color de fondo verde */
+            color: white; /* Color del texto */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+            transition: background-color 0.3s; /* Transición suave para el fondo */
+        }
+
+        .signup-btn:hover {
+            background-color: #218838; /* Color más oscuro al pasar el mouse */
+        }
+
+        .signup-btn:active {
+            background-color: #1e7e34; /* Color al hacer clic */
+        }
+    </style>
 </head>
-<body>
-    <h1>login</h1>
-    <a href="{%url 'home' %}">vista home</a>
+<body id="myId">
+    <section class="register-account">
+        <div class="signform">
+            <div class="left">
+                <a href="{% url 'register' %}" class="signup-btn">Don't have an account? Sign up!</a>
+                <div class="bts">
+                    <a href="#" class="fblogin social"><i class="fa fa-facebook"></i><span>Sign in with Facebook</span></a>
+                    <a href="#" class="twlogin social"><i class="fa fa-twitter"></i><span>Sign in with Twitter</span></a>
+                    <a href="#" class="gplogin social"><i class="fa fa-google-plus"></i><span>Sign in with Google</span></a>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="headit">
+                    <h4>Login To Your Account</h4>
+                </div>
+                <div class="form">
+                    <form class="login-form" id="login-form" method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <input type="text" placeholder="User Name" name="username" required/>
+                        <input type="password" placeholder="Password" name="password" required/>
+                        <input class="subbt" type="submit" value="Sign In" style="border:none;"/>
+                    </form>
+                    <input type="checkbox" id="remember" name="remember">
+                    <span style="color:#b6b6b6;font-size: 0.9em;">Remember Me</span>
+                    <a href="javascript:void(0);" onclick="openRecoveryModal()">Forgot your password?</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ventana Modal de Recuperación de Contraseña -->
+    <div id="recoveryModal" class="modal"> <!-- Modal -->
+        <div class="modal-content">
+            <span class="close" onclick="closeRecoveryModal()">&times;</span>
+            <h2>Recover Your Password</h2>
+            <form method="POST" action="{% url 'recover_password' %}">
+                {% csrf_token %}
+                <input type="email" placeholder="Enter your email" name="email" required/>
+                <input class="submit" type="submit" value="Send Recovery Email"/>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
